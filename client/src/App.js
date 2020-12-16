@@ -1,55 +1,59 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import logo from './logo.svg';
-import './App.css';
-import './styles.scss'
+import React, { Component } from "react";
+import axios from "axios";
+import logo from "./logo.svg";
+import "./App.css";
+import "./styles.scss";
 //import Customers from './components/customers';
-import Footer from './components/Footer'
-import Products from './components/Products'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Switch, Route, Link, BrowserRouter as Router } from 'react-router-dom'
+//import Footer from "./components/Footer";
+//import Products from "./components/Products";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       cartItems: [],
       products: [],
       isLoading: false,
-      noData: 'loading...',
+      noData: "loading...",
       modal: false,
-      count: 0
-    }
+      count: 0,
+    };
   }
   componentWillMount() {
-    this.getData()
+    this.getData();
   }
   getData = () => {
-    axios.get('/api/items')
+    axios
+      .get("/api/items")
       .then((response) => {
-        //console.log('data from mongoDB: ', response.data)
-        this.setState({
-          products: response.data
-        }, () => {
-          this.setState({ isLoading: true })
-        })
+        console.log("data from mongoDB: ", response.data);
+        this.setState(
+          {
+            products: response.data,
+          },
+          () => {
+            this.setState({ isLoading: true });
+          }
+        );
       })
       .catch((error) => {
         console.log(error);
-      })
-    if (localStorage.getItem('cartItems')) {
+      });
+    /*if (localStorage.getItem("cartItems")) {
       this.setState({
-        cartItems: JSON.parse(localStorage.getItem('cartItems'))
-      })
+        cartItems: JSON.parse(localStorage.getItem("cartItems")),
+      });
     }
-    if (localStorage.getItem('count')) {
+    if (localStorage.getItem("count")) {
       this.setState({
-        count: JSON.parse(localStorage.getItem('count'))
-      })
-    }
-  }
+        count: JSON.parse(localStorage.getItem("count")),
+      });
+    }*/
+  };
 
-  toggle = () => {
+  /*toggle = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
@@ -83,16 +87,17 @@ class App extends Component {
         count: count
        }
     })
-  }
+  }*/
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">          
+        <h1>Reservations</h1>
+        {/*<header className="App-header">          
           <header className='heading'>Mariposaweb Shopping List <Link to='/basket'><span className='subHeading'><i className="fa fa-shopping-cart"></i>  Items in Cart: {this.state.count}</span></Link></header>
         </header>
         {this.state.isLoading ? <Products products={this.state.products} handleAddToCart={this.handleAddToCart} /> : this.state.noData}
-        <Footer/>
+    <Footer/>*/}
       </div>
     );
   }
