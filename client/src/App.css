@@ -1,0 +1,38 @@
+.App{  
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  
+}
+.App-title{
+  text-align: center;
+}
+header.heading{
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  margin-top:.5rem;
+  color: #4D6D9A;/*#5F6366;*/
+  text-shadow: 1px 1px 1px #000, 
+               3px 3px 5px #4D6D9A; 
+}
+span.subHeading{
+  padding: 0 .5rem;
+  font-size: 2rem;
+  float: right;
+  border: solid 5px ; ;
+  color: #4D6D9A;
+  transition: border-width 0.6s linear;
+
+  
+}
+span.subHeading:hover{
+  border-width: 10px;
+  color: #99CED3;/*#99CED3;*/
+}
+@media(max-width: 26rem){
+  .card{
+    margin-top: 4.5rem;
+  }
+}
+
+

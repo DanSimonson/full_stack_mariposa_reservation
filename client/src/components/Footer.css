@@ -1,0 +1,23 @@
+.foot{
+  display:flex;
+  justify-content: center;
+  color: #111;
+  font-size: 32px;
+  font-family: 'Peralta', cursive;
+  font-weight: 200;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+.foot a{
+  color: #111;  
+}
+.foot a:hover{
+  color: orangered;
+  text-decoration: none;
+}
+.modal {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  background: white;
+  border-radius: 10px;
+}
