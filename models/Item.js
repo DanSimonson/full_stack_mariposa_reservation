@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //create Schema
-const ItemSchema = new Schema({
+const reservationSchema = new Schema({
   lastName: String,
   firstName: String,
   startDate: String,
@@ -37,4 +37,8 @@ const ItemSchema = new Schema({
   }
 })*/
 
-module.exports = Item = mongoose.model("item", ItemSchema);
+//module.exports = Item = mongoose.model("item", ItemSchema);
+module.exports = ReservationMessage = mongoose.model(
+  "reservationMessage",
+  reservationSchema
+);
