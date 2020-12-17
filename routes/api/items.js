@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 
 //Item model
@@ -8,7 +9,11 @@ const Item = require("../../models/Item");
 // @desc Get all Items
 // @access Public
 router.get("/", (req, res) => {
-  Item.find().then((items) => res.json(items));
+  Item.find()
+    .then((items) => res.status(200).json(items))
+    .catch((error) => {
+      res.json({ message: error });
+    });
 });
 
 // @route POST api/items
@@ -23,13 +28,44 @@ router.get("/", (req, res) => {
   })
   newItem.save().then(item => res.json(item))
 })*/
-
+router.post("/", async (req, res) => {
+  const reservation = req.body;
+  const newReservation = new Item(reservation);
+  try {
+    await newReservation.save();
+    res.status(201).json(newReservation);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 // @route delete api/items/:id
 // @desc delete a item
 // @access Public
+router.delete("/:id", async (req, res) => {
+  const { id: _id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).send("No post with that id");
+  }
+  await Item.findByIdAndRemove(_id);
+  res.json({ message: "Reservation deleted successfully" });
+});
 /*router.delete('/:id', (req, res) => {
   Item.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({success: true})))
     .catch(err => res.status(404).json({success: true}))
   })*/
+router.patch("/:id", async (req, res) => {
+  const { id: _id } = req.params;
+  const reservation = req.body;
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).send("No post with that id");
+  }
+  const updatedReservation = await Item.findByIdAndUpdate(_id, reservation, {
+    new: true,
+    useFindAndModify: false,
+  });
+  res.json(updatedReservation);
+  //mongoose.set("useFindAndModify", false);
+});
+
 module.exports = router;
