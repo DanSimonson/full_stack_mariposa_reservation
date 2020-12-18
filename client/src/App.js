@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import "./App.css";
 import "./styles.scss";
+import Navbar from "./res_components/navbar/Navbar";
 //import Customers from './components/customers';
 //import Footer from "./components/Footer";
 //import Products from "./components/Products";
@@ -92,7 +93,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Reservations</h1>
+        <Navbar />
         {/*<header className="App-header">          
           <header className='heading'>Mariposaweb Shopping List <Link to='/basket'><span className='subHeading'><i className="fa fa-shopping-cart"></i>  Items in Cart: {this.state.count}</span></Link></header>
         </header>
