@@ -1,9 +1,12 @@
 import React from "react";
-
+import Nav from "../res_components/navbar/nav.js";
 function messages(props) {
   return (
     <div>
-      <h1>Messages</h1>
+      <Nav />
+      <div>
+        <h1>Messages</h1>
+      </div>
     </div>
   );
 }
