@@ -1,4 +1,7 @@
 .NavbarItems {
-  background: linear-gradient(90deb, rgb(110, 94, 254) 100%);
+  background-color: blue;
   height: 80px;
+}
+Nav-links {
+  color: black;
 }
