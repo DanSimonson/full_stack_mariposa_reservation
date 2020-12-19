@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Navigation = styled.header`
   width: 100%;
-  border-bottom: 10px solid #222;
+  border-bottom: 10px solid #f6be00;
   z-index: 1;
   display: flex;
   justify-content: space-between;
@@ -49,18 +49,18 @@ const Navigation = styled.header`
     color: #ccc;
   }
   a {
-    color: #222;
     opacity: 0.55;
     transition: all 0.6s;
-    color: #222;
+    color: purple;
     font-size: 1em;
   }
   a:hover {
     opacity: 1;
+    color: purple;
   }
   .fa-bars {
     display: none;
-    color: #222;
+    color: #f6be00;
     font-size: 2rem;
   }
   nav {
@@ -82,7 +82,7 @@ const Navigation = styled.header`
       }
     }
     a.active {
-      color: #222;
+      color: purple;
     }
   }
 
@@ -186,12 +186,6 @@ class Nav extends Component {
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
             <NavLink activeClassName="active" to="/">
               <li>home</li>
-            </NavLink>
-            <NavLink activeClassName="active" to="/Messages">
-              <li>messages</li>
-            </NavLink>
-            <NavLink activeClassName="active" to="/SendMessage">
-              <li>send message</li>
             </NavLink>
           </ul>
         </nav>

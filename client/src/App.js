@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
-// NAVIGATION
-import Nav from "./res_components/navbar/nav.js";
+//import Nav from "./res_components/navbar/nav.js";
+import Messages from "./res_components/pages/messages.js";
 import "./App.css";
-import "./styles.scss";
+//import "./styles.scss";
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
+/*import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";*/
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartItems: [],
-      products: [],
+      reservations: [],
+      //cartItems: [],
+      //products: [],
       isLoading: false,
       noData: "loading...",
-      modal: false,
-      count: 0,
+      //modal: false,
+      //count: 0,
     };
   }
   componentWillMount() {
@@ -30,7 +31,7 @@ class App extends Component {
         console.log("data from mongoDB: ", response.data);
         this.setState(
           {
-            products: response.data,
+            reservations: response.data,
           },
           () => {
             this.setState({ isLoading: true });
@@ -43,10 +44,11 @@ class App extends Component {
   };
 
   render() {
+    const { reservations } = this.state;
+
     return (
       <div className="App">
-        <Nav />
-        <h1>Home</h1>
+        <Messages reservations={reservations} />
       </div>
     );
   }
