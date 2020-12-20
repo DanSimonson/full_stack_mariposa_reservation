@@ -20,17 +20,24 @@ class App extends Component {
       .get("/api/items")
       .then((response) => {
         console.log("data from mongoDB: ", response.data);
-        this.setState(
-          {
-            reservations: response.data,
-          },
-          () => {
-            //this.setState({ isLoading: true });
-          }
-        );
+        this.setState({
+          reservations: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+  handleDelete = (_id, index) => {
+    console.log("_id: ", _id);
+    console.log("index: ", index);
+    axios
+      .delete(`api/items/${_id}`)
+      .then((response) => {
+        this.getData();
+      })
+      .catch((error) => {
+        console.log("Delete error: ", error);
       });
   };
 
@@ -40,7 +47,10 @@ class App extends Component {
     return (
       <div className="App">
         <Nav />
-        <Messages reservations={reservations} />
+        <Messages
+          reservations={reservations}
+          handleDeleteFromParent={this.handleDelete}
+        />
       </div>
     );
   }

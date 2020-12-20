@@ -185,7 +185,7 @@ class Nav extends Component {
           />
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
             <NavLink activeClassName="active" to="/">
-              <li>home</li>
+              <li>Home</li>
             </NavLink>
             <NavLink activeClassName="active" to="/sendMessage">
               <li>Send Message</li>
