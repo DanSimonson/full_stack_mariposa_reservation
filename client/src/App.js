@@ -1,24 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-//import Nav from "./res_components/navbar/nav.js";
+import Nav from "./res_components/navbar/nav.js";
 import Messages from "./res_components/pages/messages.js";
+import SendMessage from "./pages/sendMessage";
 import "./App.css";
-//import "./styles.scss";
-
-/*import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";*/
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       reservations: [],
-      //cartItems: [],
-      //products: [],
-      isLoading: false,
-      noData: "loading...",
-      //modal: false,
-      //count: 0,
     };
   }
   componentWillMount() {
@@ -34,7 +25,7 @@ class App extends Component {
             reservations: response.data,
           },
           () => {
-            this.setState({ isLoading: true });
+            //this.setState({ isLoading: true });
           }
         );
       })
@@ -48,6 +39,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Nav />
         <Messages reservations={reservations} />
       </div>
     );

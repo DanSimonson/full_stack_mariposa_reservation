@@ -13,12 +13,23 @@ import {
   Col,
   CardImg,
 } from "reactstrap";
+import styled from "styled-components";
+const AddButton = styled.button`
+  width: 200px
+  background-color: #6a0dad;
+  color: #fff;
+  padding: 14px 40px;
+  opacity: 1;
+  transition: all 0.6s;
 
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 function messages({ reservations }) {
   console.log("reservations: ", reservations);
   return (
     <div>
-      <Nav />
       {!reservations.length > 0 ? (
         <Spinner color="info" />
       ) : (
@@ -48,10 +59,7 @@ function messages({ reservations }) {
                       First Name: {reservation.firstName}
                     </CardTitle>
                     <CardTitle tag="h5">
-                      Start Date: {reservation.startDate}
-                    </CardTitle>
-                    <CardTitle tag="h5">
-                      End Date: {reservation.endDate}
+                      Message Date: {reservation.startDate}
                     </CardTitle>
                     <CardText tag="h2">Message: {reservation.message}</CardText>
                     <div>

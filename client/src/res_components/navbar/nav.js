@@ -187,6 +187,9 @@ class Nav extends Component {
             <NavLink activeClassName="active" to="/">
               <li>home</li>
             </NavLink>
+            <NavLink activeClassName="active" to="/sendMessage">
+              <li>Send Message</li>
+            </NavLink>
           </ul>
         </nav>
       </Navigation>
