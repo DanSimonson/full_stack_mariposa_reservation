@@ -10,10 +10,13 @@
 
 ## App Info
 
+This reservations system has the ability to create, read, update and delete reservations.
+
 ### Author
 
 Dan Simonson
-[mariposaweb.net](https://mariposaweb.net)
+
+[Dan's Portfolio Website](https://mariposaweb.net)
 
 ### Version
 
