@@ -10,7 +10,7 @@
 
 ## App Info
 
-This reservations system has the ability to create, read, update and delete reservations.
+This reservations system has the ability to create, read, update and delete reservations. The site is deployed on Heroku.
 
 ### Author
 
