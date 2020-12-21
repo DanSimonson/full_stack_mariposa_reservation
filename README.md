@@ -16,8 +16,6 @@ This reservations system has the ability to create, read, update and delete rese
 
 Dan Simonson
 
-[Dan's Portfolio Website](https://mariposaweb.net)
-
 ### Version
 
 1.0.0
@@ -25,4 +23,7 @@ Dan Simonson
 ### License
 
 This project is licensed under the MIT License
+
 ```
+
+[Dan's Portfolio Website](https://mariposaweb.net)
