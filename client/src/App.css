@@ -4,3 +4,7 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
+button.btn.btn-danger {
+  background: none;
+  border: none;
+}

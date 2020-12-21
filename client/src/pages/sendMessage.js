@@ -46,7 +46,7 @@ function sendMessage() {
     event.preventDefault();
     let validForm = validateForm();
     if (validForm) {
-      axios
+      /*axios
         .post("/api/items", form)
         .then((res) => {
           //set boolean to clear form in useEffect hook
@@ -56,7 +56,7 @@ function sendMessage() {
         })
         .catch((err) => {
           console.log("handleSubmit error: ", err);
-        });
+        });*/
     }
   };
   const validateForm = () => {
@@ -104,6 +104,7 @@ function sendMessage() {
   /****end Methods***/
 
   /****rendering****/
+  //<Label style={{ color: "red" }}>Input cannot be empty</Label>
   return (
     <div>
       <Nav />
@@ -141,9 +142,7 @@ function sendMessage() {
                 onChange={handleChange}
                 value={form.lastName}
               />
-              {lastNameInValid ? (
-                <Label style={{ color: "red" }}>Input cannot be empty</Label>
-              ) : null}
+              {!lastNameInValid ? null : <Label>Input cannot be empty</Label>}
             </FormGroup>
             <FormGroup>
               <Label
@@ -163,9 +162,7 @@ function sendMessage() {
                 onChange={handleChange}
                 value={form.firstName}
               />
-              {firstNameInValid ? (
-                <Label style={{ color: "red" }}>Input cannot be empty</Label>
-              ) : null}
+              {!firstNameInValid ? null : <Label>Input cannot be empty</Label>}
             </FormGroup>
             <FormGroup>
               <Label
@@ -185,11 +182,9 @@ function sendMessage() {
                 onChange={handleChange}
                 value={form.startDate}
               />
-              {inValidDate ? (
-                <Label style={{ color: "red" }}>
-                  Input format must be mm/dd/yyy
-                </Label>
-              ) : null}
+              {!inValidDate ? null : (
+                <Label>Input format must be mm/dd/yyy</Label>
+              )}
             </FormGroup>
             <FormGroup>
               <Label
@@ -209,9 +204,7 @@ function sendMessage() {
                 onChange={handleChange}
                 value={form.message}
               />
-              {messageInValid ? (
-                <Label style={{ color: "red" }}>Input cannot be empty</Label>
-              ) : null}
+              {!messageInValid ? null : <Label>Input cannot be empty</Label>}
             </FormGroup>
             <div className="mb-3 mt-3 text-right">
               <Button type="submit" color="warning" size="lg">

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import Nav from "./res_components/navbar/nav.js";
 import Messages from "./res_components/pages/messages.js";
-import SendMessage from "./pages/sendMessage";
 import "./App.css";
 
 class App extends Component {
@@ -29,8 +28,6 @@ class App extends Component {
       });
   };
   handleDelete = (_id, index) => {
-    console.log("_id: ", _id);
-    console.log("index: ", index);
     axios
       .delete(`api/items/${_id}`)
       .then((response) => {
@@ -39,6 +36,9 @@ class App extends Component {
       .catch((error) => {
         console.log("Delete error: ", error);
       });
+  };
+  handleEdit = (openModal) => {
+    console.log("openModal: ", openModal);
   };
 
   render() {
@@ -50,6 +50,7 @@ class App extends Component {
         <Messages
           reservations={reservations}
           handleDeleteFromParent={this.handleDelete}
+          handleEditFromParent={this.handleEdit}
         />
       </div>
     );

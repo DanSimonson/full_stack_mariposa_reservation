@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "../../res_components/navbar/nav.js";
+import ModalForm from "../modal/modalForm";
 import axios from "axios";
 import {
   ListGroup,
@@ -31,25 +32,19 @@ const AddButton = styled.button`
 
 function messages(props) {
   const { reservations } = props;
-
+  const [openModal, setOpenModal] = useState(false);
   /*** methods ***/
   const handleDelete = (_id, index) => {
     //send _id data back to parent
-    //console.log("index: ", index);
     props.handleDeleteFromParent(_id, index);
-    //console.log("event.target: ", event.target);
-    //console.log("id: ", id);
-    //console.log("reservations: ", reservations);
-    //let foundId = reservations.filter((reservation) => reservation._id != id);
-    //console.log("foundId: ", foundId);
-    /*axios
-      .delete(`api/items/${_id}`)
-      .then((res) => {
-        console.log("res: ", res);
-      })
-      .catch((error) => {
-        console.log("Delete error: ", error);
-      });*/
+  };
+  const handleEdit = () => {
+    //open modal
+    setOpenModal(true);
+  };
+  const handleClose = (modalVal) => {
+    //if open, close modal from parent
+    setOpenModal(false);
   };
 
   /*** end methods ***/
@@ -57,7 +52,9 @@ function messages(props) {
   return (
     <div>
       {!reservations.length > 0 ? (
-        <Spinner color="info" />
+        <Col sm="12" md={{ size: 4, offset: 4 }}>
+          <Spinner size="lg" color="info" />
+        </Col>
       ) : (
         <ListGroup className="mt-4">
           {reservations.map((reservation, index) => (
@@ -89,7 +86,11 @@ function messages(props) {
                     </CardTitle>
                     <CardText tag="h2">Message: {reservation.message}</CardText>
                     <div>
-                      <Button color="warning" size="lg">
+                      <Button
+                        color="warning"
+                        size="lg"
+                        onClick={() => handleEdit()}
+                      >
                         Edit
                       </Button>{" "}
                       <Button
@@ -109,6 +110,7 @@ function messages(props) {
           ))}
         </ListGroup>
       )}
+      <ModalForm openModal={openModal} handleCloseFromParent={handleClose} />
     </div>
   );
 }
