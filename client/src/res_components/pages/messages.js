@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../../res_components/navbar/nav.js";
 import ModalForm from "../modal/modalForm";
+import Footer from "../../components/Footer";
 import axios from "axios";
 import {
   ListGroup,
@@ -33,14 +34,22 @@ const AddButton = styled.button`
 function messages(props) {
   const { reservations } = props;
   const [openModal, setOpenModal] = useState(false);
+  const [foundArray, setFoundArray] = useState([]);
   /*** methods ***/
   const handleDelete = (_id, index) => {
     //send _id data back to parent
     props.handleDeleteFromParent(_id, index);
   };
-  const handleEdit = () => {
+  const handleEdit = (id) => {
     //open modal
     setOpenModal(true);
+    console.log("messages handleEdit id: ", id);
+    let i;
+    for (i = 0; i < reservations.length; i++) {
+      if (reservations[i]._id === id) {
+        setFoundArray(reservations[i]);
+      }
+    }
   };
   const handleClose = (modalVal) => {
     //if open, close modal from parent
@@ -48,7 +57,6 @@ function messages(props) {
   };
 
   /*** end methods ***/
-
   return (
     <div>
       {!reservations.length > 0 ? (
@@ -89,7 +97,7 @@ function messages(props) {
                       <Button
                         color="warning"
                         size="lg"
-                        onClick={() => handleEdit()}
+                        onClick={() => handleEdit(reservation._id)}
                       >
                         Edit
                       </Button>{" "}
@@ -110,7 +118,13 @@ function messages(props) {
           ))}
         </ListGroup>
       )}
-      <ModalForm openModal={openModal} handleCloseFromParent={handleClose} />
+      {reservations.length > 0 && <Footer />}
+      <ModalForm
+        reservations={reservations}
+        foundReservation={foundArray}
+        openModal={openModal}
+        handleCloseFromParent={handleClose}
+      />
     </div>
   );
 }

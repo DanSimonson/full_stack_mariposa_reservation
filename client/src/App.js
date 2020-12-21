@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Nav from "./res_components/navbar/nav.js";
 import Messages from "./res_components/pages/messages.js";
+import Footer from "./components/Footer";
 import "./App.css";
 
 class App extends Component {

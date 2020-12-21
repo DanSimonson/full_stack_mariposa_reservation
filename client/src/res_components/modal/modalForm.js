@@ -28,7 +28,13 @@ const initialFormState = {
 };
 
 const ModalForm = (props) => {
-  const { buttonLabel, className, openModal } = props;
+  const {
+    buttonLabel,
+    className,
+    openModal,
+    reservations,
+    foundReservation,
+  } = props;
   const [modal, setModal] = useState(false);
   //from sendMessage
   const [form, setForm] = useState(initialFormState);
@@ -39,10 +45,6 @@ const ModalForm = (props) => {
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
 
-  /*** methods ***/
-  /*const handleClose = () => {
-    props.handleCloseFromParent(modal);
-  }*/
   const toggle = () => {
     //close or open
     setModal(!modal);
@@ -56,6 +58,11 @@ const ModalForm = (props) => {
     }
   }, [openModal]);
 
+  useEffect(() => {
+    console.log("foundReservation: ", foundReservation);
+    setForm(foundReservation);
+  }, [foundReservation]);
+
   const handleChange = (event) => {
     setForm({
       ...form,
@@ -67,12 +74,10 @@ const ModalForm = (props) => {
     let validForm = validateForm();
     if (validForm) {
       axios
-        .post("/api/items", form)
+        .patch(`/api/items/${foundReservation._id}`, form)
         .then((res) => {
-          //set boolean to clear form in useEffect hook
-          setSubmitted(true);
-          //redirect the page
-          history.push("/");
+          toggle();
+          window.location.reload();
         })
         .catch((err) => {
           console.log("handleSubmit error: ", err);
@@ -120,7 +125,11 @@ const ModalForm = (props) => {
     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
     return date_regex.test(testdate);
   }
+  const getId = (id) => {
+    //console.log("modalForm getId id: ", id);
+  };
   /*** end methods ***/
+  //console.log("modalForm foundArray: ", foundArray);
   //md={{ size: 6, offset: 3 }}
   return (
     <div>
@@ -239,7 +248,12 @@ const ModalForm = (props) => {
                 ) : null}
               </FormGroup>
               <div className="mb-3 mt-3 text-right">
-                <Button type="submit" color="warning" size="lg">
+                <Button
+                  onClick={() => getId()}
+                  type="submit"
+                  color="warning"
+                  size="lg"
+                >
                   Submit
                 </Button>{" "}
                 <Button
