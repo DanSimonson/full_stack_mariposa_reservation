@@ -1,29 +1,11 @@
-### A Shopping Cart Project
+### A Reservation System Project
 
-> This is a full stack (MERN) app with MongoDB, React, Express, Nodejs.  
+> This is a full stack (MERN) app with MongoDB, React, Express, Nodejs.
 
 ### DEMO
-[Click Here For DEMO ](https://mariposaweb.net) 
 
-## Quick Start
+[Click Here For DEMO ](https://mysterious-escarpment-64882.herokuapp.com/)
 
-``` bash
-# Install dependencies for server
-npm install
-
-# Install dependencies for client
-npm run client-install
-
-# Run the client & server with concurrently
-npm run dev
-
-# Run the Express server only
-npm run server
-
-# Run the React client only
-npm run client
-
-# Server runs on http://localhost:5000 and client on http://localhost:3000
 ```
 
 ## App Info
@@ -40,3 +22,4 @@ Dan Simonson
 ### License
 
 This project is licensed under the MIT License
+```
