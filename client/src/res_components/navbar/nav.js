@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-
-// import { BurgerIcon } from './'
+import { ReservationContext } from "../../context/reservationContext";
 import styled from "styled-components";
 
 const Navigation = styled.header`
@@ -73,6 +72,13 @@ const Navigation = styled.header`
       justify-content: space-between;
       font-size: 1em;
       list-style-type: none;
+      color: #6a0dad;
+      opacity: 0.55;
+      transition: all 0.6s;
+    }
+    li:hover{
+      opacity: 1;
+      cursor: pointer
     }
     a {
       font-size: 1em;
@@ -154,22 +160,25 @@ const Navigation = styled.header`
   }
 `;
 
-class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isExpanded: false,
-    };
-  }
-  handleToggle(e) {
-    e.preventDefault();
-    this.setState({
-      isExpanded: !this.state.isExpanded,
-    });
-  }
-  render() {
-    const { isExpanded } = this.state;
+ function Nav() {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const { reservations, deleteReservation, sendForm, setSendForm, toggleForm } = useContext(ReservationContext);
+  
+  /*** methods ***/
+  const handleSendMessage = () => {
+    setSendForm(true)
 
+  }
+  const handleHomeLink = () => {
+    setSendForm(false)
+  }
+  const handleToggle = (e) => {
+    e.preventDefault();
+    setIsExpanded(!isExpanded)
+  }
+  /*** end methods ***/
+  
+  /*** render jsx ***/
     return (
       <Navigation>
         <div className="logo">
@@ -181,20 +190,15 @@ class Nav extends Component {
           <i
             className="fa fa-bars"
             aria-hidden="true"
-            onClick={(e) => this.handleToggle(e)}
+            onClick={(e) => handleToggle(e)}
           />
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-            <NavLink activeClassName="active" to="/">
-              <li>Home</li>
-            </NavLink>
-            <NavLink activeClassName="active" to="/sendMessage">
-              <li>Send Message</li>
-            </NavLink>
+              <li onClick={handleHomeLink}>Home</li>
+              <li onClick={handleSendMessage}>Send Message</li>
           </ul>
         </nav>
       </Navigation>
     );
-  }
 }
 
 export default Nav;

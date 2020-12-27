@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
@@ -18,6 +18,7 @@ import {
   FormFeedback,
   InputGroupAddon,
 } from "reactstrap";
+import { ReservationContext } from "../../context/reservationContext";
 
 const initialFormState = {
   lastName: "",
@@ -32,7 +33,7 @@ const ModalForm = (props) => {
     buttonLabel,
     className,
     openModal,
-    reservations,
+    //reservations,
     foundReservation,
   } = props;
   const [modal, setModal] = useState(false);
@@ -44,6 +45,7 @@ const ModalForm = (props) => {
   const [firstNameInValid, setFirstNameInValid] = useState(false);
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
+  const { reservations, setReservations, deleteReservation, getData } = useContext(ReservationContext);
 
   const toggle = () => {
     //close or open
@@ -59,7 +61,6 @@ const ModalForm = (props) => {
   }, [openModal]);
 
   useEffect(() => {
-    console.log("foundReservation: ", foundReservation);
     setForm(foundReservation);
   }, [foundReservation]);
 
@@ -75,9 +76,9 @@ const ModalForm = (props) => {
     if (validForm) {
       axios
         .patch(`/api/items/${foundReservation._id}`, form)
-        .then((res) => {
+        .then((response) => {
+          getData()
           toggle();
-          window.location.reload();
         })
         .catch((err) => {
           console.log("handleSubmit error: ", err);
@@ -125,12 +126,8 @@ const ModalForm = (props) => {
     var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
     return date_regex.test(testdate);
   }
-  const getId = (id) => {
-    //console.log("modalForm getId id: ", id);
-  };
   /*** end methods ***/
-  //console.log("modalForm foundArray: ", foundArray);
-  //md={{ size: 6, offset: 3 }}
+  
   return (
     <div>
       <Button color="danger" onClick={toggle}>
@@ -249,7 +246,6 @@ const ModalForm = (props) => {
               </FormGroup>
               <div className="mb-3 mt-3 text-right">
                 <Button
-                  onClick={() => getId()}
                   type="submit"
                   color="warning"
                   size="lg"

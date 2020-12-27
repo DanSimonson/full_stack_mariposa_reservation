@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-import Nav from "../../res_components/navbar/nav.js";
-import ModalForm from "../modal/modalForm";
-import Footer from "../../components/Footer";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import {
   ListGroup,
   ListGroupItem,
@@ -16,35 +12,21 @@ import {
   Col,
   CardImg,
 } from "reactstrap";
+import SendMessage from './SendMessage'
+import ModalForm from "../res_components/modal/modalForm";
+import Footer from "./Footer";
+import { ReservationContext } from "../context/reservationContext";
 import styled from "styled-components";
-import Axios from "axios";
-const AddButton = styled.button`
-  width: 200px
-  background-color: #6a0dad;
-  color: #fff;
-  padding: 14px 40px;
-  opacity: 1;
-  transition: all 0.6s;
 
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-function messages(props) {
-  const { reservations } = props;
+function ReservationList() {
   const [openModal, setOpenModal] = useState(false);
   const [foundArray, setFoundArray] = useState([]);
+  const { reservations, deleteReservation, sendForm, setSendForm, toggleForm } = useContext(ReservationContext);
+  
   /*** methods ***/
-  const handleDelete = (_id, index) => {
-    //send _id data back to parent
-    props.handleDeleteFromParent(_id, index);
-  };
-
   const handleEdit = (id) => {
     //open modal
     setOpenModal(true);
-    console.log("messages handleEdit id: ", id);
     let i;
     for (i = 0; i < reservations.length; i++) {
       if (reservations[i]._id === id) {
@@ -56,16 +38,17 @@ function messages(props) {
     //if open, close modal from parent
     setOpenModal(false);
   };
-
   /*** end methods ***/
+
   return (
+    <React.Fragment>
     <div>
-      {!reservations.length > 0 ? (
+      {!reservations.length > 0 && (
         <Col sm="12" md={{ size: 4, offset: 4 }}>
-          <Spinner size="lg" color="info" />
-        </Col>
-      ) : (
-        <ListGroup className="mt-4">
+          <Spinner size="lg" color="info"  />
+        </Col> )}
+       {sendForm ? ( <SendMessage/> ) :
+       (  <ListGroup className="mt-4">
           {reservations.map((reservation, index) => (
             <div>
               <Row>
@@ -79,6 +62,7 @@ function messages(props) {
                     }}
                     className="text-center"
                     key={reservation._id}
+                    fade="true"
                   >
                     <CardTitle tag="h1">RESERVATION INFORMATION</CardTitle>
                     <CardTitle tag="h5">
@@ -105,8 +89,8 @@ function messages(props) {
                       <Button
                         color="warning"
                         size="lg"
-                        onClick={(event) =>
-                          handleDelete(reservation._id, index)
+                        onClick={() =>
+                          deleteReservation(reservation._id)
                         }
                       >
                         Delete
@@ -117,8 +101,10 @@ function messages(props) {
               </Row>
             </div>
           ))}
-        </ListGroup>
-      )}
+        </ListGroup>)
+}
+      {/*)}*/}
+      </div>
       {reservations.length > 0 && <Footer />}
       <ModalForm
         reservations={reservations}
@@ -126,8 +112,9 @@ function messages(props) {
         openModal={openModal}
         handleCloseFromParent={handleClose}
       />
-    </div>
+      
+    </React.Fragment>   
   );
 }
 
-export default messages;
+export default ReservationList;

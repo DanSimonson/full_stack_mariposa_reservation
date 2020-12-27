@@ -16,6 +16,7 @@ import {
   FormFeedback,
   InputGroupAddon,
 } from "reactstrap";
+import { ReservationContext } from "../context/reservationContext";
 
 const initialFormState = {
   lastName: "",
@@ -24,7 +25,7 @@ const initialFormState = {
   endDate: "",
   message: "",
 };
-function sendMessage() {
+function SendMessage(props) {
   const [form, setForm] = useState(initialFormState);
   const [submitted, setSubmitted] = useState(false);
   const history = useHistory();
@@ -32,6 +33,7 @@ function sendMessage() {
   const [firstNameInValid, setFirstNameInValid] = useState(false);
   const [inValidDate, setInValidDate] = useState(false);
   const [messageInValid, setMessageInValid] = useState(false);
+  const { reservations, deleteReservation, sendForm, setSendForm, toggleForm, getData } = useContext(ReservationContext);
 
   /****Methods****/
   useEffect(() => {
@@ -46,7 +48,7 @@ function sendMessage() {
   };
   const handleCancel = () => {
     //redirect the page
-    history.push("/");
+    setSendForm(false)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,10 +57,14 @@ function sendMessage() {
       axios
         .post("/api/items", form)
         .then((res) => {
-          //set boolean to clear form in useEffect hook
+          /***
+           * set boolean to clear form in useEffect hook
+           * toggle form closed
+           * get new data
+          ***/
           setSubmitted(true);
-          //redirect the page
-          history.push("/");
+          toggleForm()
+          getData()   
         })
         .catch((err) => {
           console.log("handleSubmit error: ", err);
@@ -112,7 +118,6 @@ function sendMessage() {
   /****rendering****/
   return (
     <div>
-      <Nav />
       <Container className="rounded">
         <h1 className="text-center" style={{ color: "#6a0dad" }}>
           Send Message
@@ -235,9 +240,9 @@ function sendMessage() {
           </Col>
         </Form>
       </Container>
-      <Footer />
+      
     </div>
   );
 }
 
-export default sendMessage;
+export default SendMessage;
